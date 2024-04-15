@@ -1,4 +1,5 @@
 /*
+Aufgabe 3
     Erstellen Sie bitte die Klassen casters.Spellcaster, casters.Sorcerer, Wizard, casters.WildMagicSorcerer und casters.IllusionWizard:
         casters.Sorcerer und Wizard sind casters.Spellcaster.
         casters.WildMagicSorcerer ist ein casters.Sorcerer und casters.IllusionWizard ist ein Wizard.
@@ -32,7 +33,8 @@
                                   casters.WildMagicSorcerer      casters.IllusionWizard
 */
 
-/* Drei Klassen: Held, Ritter und Magier.
+/* Aufgabe 4
+Drei Klassen: Held, Ritter und Magier.
  * Alle Helden haben einen Namen und sind einem Volk zugeordnet (Attribute)
  * Die Völker (Zwerg, Elf, Mensch) sind als Enum-Konstanten verfügbar.
  * Alle Helden werden in einer Liste (statisches Attribut der Klasse 'Held') abgespeichert.
@@ -46,13 +48,45 @@
  * Wie können diese Werte abgefragt werden? Etwas in der Art haben wir im Unterricht besprochen.
  */
 
+/* Aufgabe 5
+ Schreiben Sie ein Programm, das
+ * - die Klassen Computer, Desktop, Notebook und Server einführt.
+ * - Jeder Computer hat einen Zustand (Ein/Aus)
+ * - Einen Hersteller, der nur ein mal über den Konstruktor gesetzt werden darf
+ * - Eine Statische Liste, die die aktuelle Instanz speichert
+ * (die Klasse Computer besitzt eine Liste vom Typ Computer, in die im Konstruktor das Objekt hinzugefügt wird)
+ * - Und eine Methode zum Ein- und Ausschalten (Eine Methode, die beides erledigt)
+ * (Diese Methode gibt den Typ des Computers und den neuen Zustand aus, siehe Screenshot)
+ * (Versuchen Sie diese Ausgabe abhängig vom Zustand in nur einer Zeile zu implementieren)
+ * - Überlegen Sie sich eine geeignete Vererbungsstruktur.
+ * - Verwenden Sie in den Subklassen die Konstruktor-Verkettung zur Initialisierung des Herstellers in der Basisklasse
+ * - Geben Sie im Main für jeden Computer in der Liste den Hersteller aus und rufen Sie die Methode zum Ein- und Ausschalten auf
+ * (Siehe Screenshot)
+ *
+ * Beachten Sie, dass der Zustand nur über die Methode zum Ein- und Ausschalten geändert werden darf!
+ *
+ * Erweitern Sie anschließend das Programm durch die Klasse Büro
+ * - Jedes Büro hat eine Nummer, die nur ein mal durch den Konstruktor gesetzt werden darf
+ * - eine Liste mit den sich im Büro befindenden Computern
+ * - und eine Statische Liste mit allen Büros
+ * - Erweitern Sie die Main so, dass nun anstatt der Computerliste die Büroliste durchlaufen wird
+ * (erzeugen Sie dazu zwei Büros mit je zwei Computern)
+ * - und rufen Sie für jedes Büro die Nummer und für jeden Computer in jedem Büro den Hersteller und die Methode zum Ein- und Ausschalten auf
+ */
+
 import Aufgabe4.Held;
 import Aufgabe4.Magier;
 import Aufgabe4.Ritter;
 import Aufgabe4.Voelker;
+import Aufgabe5.Büro;
+import Aufgabe5.Computer;
+import Aufgabe5.Notebook;
+import Aufgabe5.Server;
 import casters.IllusionWizard;
 import casters.WildMagicSorcerer;
 
+
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Klassen {
@@ -93,13 +127,63 @@ public class Klassen {
         }
 
     }
+
+    public static void it(){
+        //ArryList für Computer
+        ArrayList<Computer> computerListe = new ArrayList<>();
+
+        //Erzeugen von Computern
+        Computer desktop1 = new Computer("Dell", true);
+        Computer notebook1 = new Notebook("HP",false);
+        Computer server1 = new Server("IBM",true);
+
+        //Hinzufügen der Computer zur ArrayList
+        computerListe.add(desktop1);
+        computerListe.add(notebook1);
+        computerListe.add(server1);
+
+//        //Ausgabe der Computerinformationen und Statusänderung
+//        for(Computer computer : computerListe){
+//            System.out.println(computer.toggleStatus());
+//        }
+
+        //Klassen erweiterung für Büro
+        ArrayList<Büro> büroList = new ArrayList<>();
+
+        Büro büro1 = new Büro(1);
+        büro1.addComputer(desktop1);
+        büro1.addComputer(notebook1);
+
+        Büro büro2 = new Büro(2);
+        büro2.addComputer(server1);
+        büro2.addComputer(notebook1);
+
+        //Add to list
+        büroList.add(büro1);
+        büroList.add(büro2);
+
+        for (Büro büro : büroList){
+            for (Computer computer : büro.getComputerArrayList()){
+                System.out.println("Büro " + büro.getNummer()+ ": " + computer.toggleStatus() );
+            }
+        }
+
+
+
+
+    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        System.out.println("Wähle aus welche aufgabe du Möchtest \n 1: Aufgabe 3 mit den Magieren \n 2: Aufgabe 4 mit den Helden \n 3: Aufgabe 5 mit den Büros \n");
+
         int auswahl = sc.nextInt();
+
 
         switch (auswahl){
             case 1: zaubern();break;
             case 2: helden();break;
+            case 3: it();break;
         }
 
     }
